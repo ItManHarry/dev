@@ -6,6 +6,8 @@
 		<title>Employee List Page</title>
 		<link rel="shortcut icon" type="image/x-icon" th:href = "@{/static/images/logoes/way.ico}" media="screen" />
 		<link rel = "stylesheet" th:href = "@{/static/css/bootstrap.min.css}" media="screen"/>
+		<!-- fontawesome -->
+		<link rel = "stylesheet" th:href = "@{/static/css/all.css}" media="screen"/>
 		<script type = "text/javascript" th:src = "@{/static/js/jquery-3.3.1.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/popper.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/bootstrap.min.js}" charset="UTF-8"></script>
@@ -20,8 +22,8 @@
 					<input type = "text" placeholder = "name..." v-model = "name" class = "form-control"/>
 				</div> 
 				<div class = "col-sm-2 text-right">
-				  	<button class="btn btn-outline-success btn-sm" type="button" @click = "doSearch">Search</button>&nbsp;&nbsp;
-	                <a th:href = "@{~/biz/employee/add}" class = "btn btn-outline-primary btn-sm">&nbsp;&nbsp;Add&nbsp;&nbsp;</a>
+				  	<button class="btn btn-outline-success btn-sm" type="button" @click = "doSearch"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</button>&nbsp;&nbsp;
+	                <a th:href = "@{~/biz/employee/add}" class = "btn btn-outline-primary btn-sm"><i class = "fas fa-plus"></i>&nbsp;&nbsp;Add&nbsp;&nbsp;</a>
 				</div> 
 			</div>
 			<br>
@@ -44,8 +46,8 @@
 								<td>{{data.job}}</td>
 								<!-- vue拼接超链接方式 -->
 								<td>
-									<a :href = "'/biz/employee/update?id='+data.id" class = "btn btn-link btn-xs">Edit</a>&nbsp;&nbsp;
-									<a :href = "'/biz/employee/move?id='+data.id" class = "btn btn-link btn-xs">Delete</a>
+									<a :href = "'/biz/employee/update?id='+data.id" class = "btn btn-link btn-xs"><i class = "fas fa-edit"></i>&nbsp;&nbsp;Edit</a>&nbsp;&nbsp;
+									<a :href = "'/biz/employee/move?id='+data.id" class = "btn btn-link btn-sm"><i class = "fas fa-trash-alt"></i>&nbsp;&nbsp;Delete</a>
 								</td>						
 							</tr>
 						</tbody>

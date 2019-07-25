@@ -6,12 +6,12 @@
 		insert into tb_employee
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			name,
-			job,
 			code,	
 			gender,		
 			email,	
 			mobile,	
 			address,
+			job,
 			createuserid,
 			createtime,
 			rowver,

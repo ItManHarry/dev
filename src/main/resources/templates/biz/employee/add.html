@@ -6,6 +6,8 @@
 		<title>Employee Add Page</title>
 		<link rel="shortcut icon" type="image/x-icon" th:href = "@{/static/images/logoes/way.ico}" media="screen" />
 		<link rel = "stylesheet" th:href = "@{/static/css/bootstrap.min.css}" media="screen"/>
+		<!-- fontawesome -->
+		<link rel = "stylesheet" th:href = "@{/static/css/all.css}" media="screen"/>
 		<script type = "text/javascript" th:src = "@{/static/js/jquery-3.3.1.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/popper.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/bootstrap.min.js}" charset="UTF-8"></script>
@@ -31,8 +33,8 @@
 					    <label for="job">Job</label>
 					    <input type="text" class="form-control" id="job" name = "job" placeholder="Job">
 					  </div>
-					  <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
-					  <a th:href = "@{~/biz/employee/list}" class = "btn btn-outline-secondary btn-sm">Cancel</a>
+					  <button type="submit" class="btn btn-outline-primary btn-sm"><i class = "fas fa-save"></i>&nbsp;&nbsp;Submit</button>
+					  <a th:href = "@{~/biz/employee/list}" class = "btn btn-outline-secondary btn-sm"><i class = "fas fa-undo"></i>&nbsp;&nbsp;Cancel</a>
 					</form>
 				</div> 
 			</div>
