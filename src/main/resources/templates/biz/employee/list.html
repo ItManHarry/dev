@@ -6,10 +6,9 @@
 		<title>Employee List Page</title>
 		<link rel="shortcut icon" type="image/x-icon" th:href = "@{/static/images/logoes/way.ico}" media="screen" />
 		<link rel = "stylesheet" th:href = "@{/static/css/bootstrap.min.css}" media="screen"/>
+		<script type = "text/javascript" th:src = "@{/static/js/jquery-3.3.1.min.js}" charset="UTF-8"></script>
+		<script type = "text/javascript" th:src = "@{/static/js/popper.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/bootstrap.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/jquery-1.11.3.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/bootstrap-table.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/locale/bootstrap-table-zh-CN.min.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/bootstrap-paginator.js}" charset="UTF-8"></script>
 		<script type = "text/javascript" th:src = "@{/static/js/vue.js}" charset="UTF-8"></script>
 	</head>
@@ -17,26 +16,25 @@
 		<div class="container-fluid" id = "contentdiv"> 
 			<br>
 			<div class = "row">
-				<div class = "col-sm-6 col-sm-offset-6 text-right">
-					<div class="input-group">
-	                    <input type = "text" placeholder = "name..." v-model = "name" class = "form-control input-sm"/>
-	                    <span class="input-group-btn">
-	                        <button class="btn btn-success btn-sm" type="button" @click = "doSearch">Search</button>
-	                    	&nbsp;&nbsp;<a th:href = "@{~/biz/employee/add}" class = "btn btn-primary btn-sm">&nbsp;&nbsp;Add&nbsp;&nbsp;</a>
-	                    </span>
-	                </div>
+				<div class = "col-sm-10 text-right">
+					<input type = "text" placeholder = "name..." v-model = "name" class = "form-control"/>
+				</div> 
+				<div class = "col-sm-2 text-right">
+				  	<button class="btn btn-outline-success btn-sm" type="button" @click = "doSearch">Search</button>&nbsp;&nbsp;
+	                <a th:href = "@{~/biz/employee/add}" class = "btn btn-outline-primary btn-sm">&nbsp;&nbsp;Add&nbsp;&nbsp;</a>
 				</div> 
 			</div>
 			<br>
 			<div class = "row">
 				<div class = "col-sm-12">
-					<table class = "table table-bordered table-hover table-responsive" id = "list">
-						<thead>
+					<table class = "table table-bordered table-hover table-sm" id = "list">
+						<caption>List of employees</caption>
+						<thead class="thead-dark">
 							<tr>
-								<th width = "10%">#ID</th>
-								<th width = "40%">Name</th>
-								<th width = "40%">Job</th>
-								<th width = "10%">Action</th>
+								<th width = "20%">#ID</th>
+								<th width = "30%">Name</th>
+								<th width = "30%">Job</th>
+								<th width = "20%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -54,7 +52,7 @@
 					</table>
 					<nav class="text-right">
 					    <ul class="pagination"></ul>
-					</nav>					
+					</nav>	
 				</div> 
 			</div>
 		</div>

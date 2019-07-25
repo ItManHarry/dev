@@ -408,7 +408,8 @@
             }
 
             itemContainer.addClass(itemContainerClass).append(itemContent);
-
+            itemContainer.addClass("page-item");
+            itemContainer.find("a").addClass("page-link");
             itemContent.addClass(itemContentClass).html(text).on("click", null, {type: type, page: page}, $.proxy(this.onPageItemClicked, this));
 
             if (this.options.pageUrl) {
@@ -572,10 +573,10 @@
         bootstrapMajorVersion: 2,
         listContainerClass: "",
         itemContainerClass: function (type, page, current) {
-            return (page === current) ? "active" : "";
+            return (page === current) ? "page-item active" : "page-item";
         },
         itemContentClass: function (type, page, current) {
-            return "";
+            return "page-link";
         },
         currentPage: 1,
         numberOfPages: 5,
