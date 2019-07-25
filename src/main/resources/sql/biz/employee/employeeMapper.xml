@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ch.sys.biz.dao.business.mapper.employee.EmployeeDao">
+	<!-- 新增雇员 -->
+	<insert id="insert" parameterType="Tb_Employee">
+		insert into tb_employee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			name,
+			job,
+			code,	
+			gender,		
+			email,	
+			mobile,	
+			address,
+			createuserid,
+			createtime,
+			rowver,
+			delflag
+		</trim>			
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{name, jdbcType=VARCHAR},
+			#{code, jdbcType=VARCHAR},
+			#{gender, jdbcType=INTEGER},
+			#{email, jdbcType=VARCHAR},
+			#{mobile, jdbcType=VARCHAR},
+			#{address, jdbcType=VARCHAR},
+			#{job, jdbcType=VARCHAR},
+			#{createuserid, jdbcType=VARCHAR},
+			#{createtime, jdbcType=TIMESTAMP},
+			#{rowver, jdbcType=INTEGER},
+			0
+		</trim>
+	</insert>
+	<select id="findAll" parameterType="Tb_Employee" resultType="Tb_Employee">
+		select * from tb_employee a
+	</select>
+	<select id = "recordCnt"  parameterType="Tb_Employee" resultType="int">
+		select count(*) from tb_employee 
+	</select>
+	<select id="findAllByTerm" resultType="Tb_Employee">
+		select * from tb_employee a where a.name like concat(concat('%',#{name}),'%')
+	</select>
+	<select id = "recordCntByTerm" resultType="int">
+		select count(*) from tb_employee a where a.name like concat(concat('%',#{name}),'%')
+	</select>
+	<select id="findById" parameterType="String" resultType="Tb_Employee">
+		select * from tb_employee a
+		where a.id = #{id} and a.delflag = 0
+	</select>	
+	<update id="update" parameterType="Tb_Employee">
+		update tb_employee 
+		<set>
+			<if test = "name != null">
+				name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test = "code != null">
+				code = #{code, jdbcType=VARCHAR},
+			</if>
+			<if test = "gender != null">
+				gender = #{gender, jdbcType=INTEGER},
+			</if>
+			<if test = "email != null">
+				email = #{email, jdbcType=VARCHAR},
+			</if>
+			<if test = "mobile != null">
+				mobile = #{mobile, jdbcType=VARCHAR},
+			</if>
+			<if test = "address != null">
+				address = #{address, jdbcType=VARCHAR},
+			</if>
+			<if test = "job != null">
+				job = #{job, jdbcType=VARCHAR},
+			</if>
+			<if test = "modifyuserid != null">
+				modifyuserid = #{modifyuserid, jdbcType=VARCHAR},
+			</if>
+			modifytime = #{modifytime, jdbcType=TIMESTAMP},
+			rowver = #{rowver, jdbcType=INTEGER}
+		</set>
+		where id = #{id, jdbcType=VARCHAR} and delflag = 0
+	</update>
+	<!-- 逻辑删除 -->
+	<!--update id="delete">
+		update tb_employee set delflag = 1
+		where id in
+		<foreach collection="ids" item = "item" index = "index" open = "(" separator="," close = ")">
+			#{item}
+		</foreach>
+	</update-->
+	<!-- 物理删除 -->
+	<delete id="delete">
+		delete from tb_employee
+		where id in
+		<foreach collection="ids" item = "item" index = "index" open = "(" separator="," close = ")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>
