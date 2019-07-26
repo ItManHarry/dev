@@ -14,7 +14,7 @@ import com.github.pagehelper.Page
 @RequestMapping("/biz/employee")
 class EmployeeController {
 
-	final String URL = "/biz/employee"
+	final String URL = "biz/employee"
 	@Autowired
 	EmployeeService employeeService
 	/**
