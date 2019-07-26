@@ -1,4 +1,6 @@
 package com.ch.sys.biz.controller.employee
+import javax.servlet.http.HttpServletRequest
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -41,10 +43,15 @@ class EmployeeController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	def save(String name, String job, Map map){
+	def save(HttpServletRequest request, Map map){
 		Tb_Employee employee = new Tb_Employee()
-		employee.setName(name)
-		employee.setJob(job)
+		employee.setName(request.getParameter("name"))
+		employee.setCode(request.getParameter("code"))
+		employee.setGender(Integer.parseInt(request.getParameter("gender")))
+		employee.setEmail(request.getParameter("email"))
+		employee.setAddress(request.getParameter("address"))
+		employee.setMobile(request.getParameter("mobile"))
+		employee.setJob(request.getParameter("job"))
 		employee.setCreateuserid("20112004")
 		employee.setNewRecord(true)
 		employeeService.save(employee)
@@ -62,6 +69,7 @@ class EmployeeController {
 	def update(String id, Map map){
 		Tb_Employee employee = employeeService.findById(id)
 		println employee.id + ", "  + employee.name + ", " + employee.job
+		println employee.code + ", " + employee.address + ", " + employee.email + ", " + employee.gender + ", " + employee.mobile
 		map.put("employee", employee)
 		return URL + "/update"
 	}
@@ -73,11 +81,16 @@ class EmployeeController {
 	 * @return
 	 */
 	@PostMapping("/modify")
-	def modify(String id, String name, String job, Map map){
-		Tb_Employee employee = employeeService.findById(id)
-		employee.setId(id)
-		employee.setName(name)
-		employee.setJob(job)
+	def modify(HttpServletRequest request, Map map){
+		Tb_Employee employee = employeeService.findById(request.getParameter("id"))
+		employee.setId(request.getParameter("id"))
+		employee.setName(request.getParameter("name"))
+		employee.setCode(request.getParameter("code"))
+		employee.setGender(Integer.parseInt(request.getParameter("gender")))
+		employee.setEmail(request.getParameter("email"))
+		employee.setAddress(request.getParameter("address"))
+		employee.setMobile(request.getParameter("mobile"))
+		employee.setJob(request.getParameter("job"))
 		employee.setModifyuserid("20112004")
 		employee.setNewRecord(false)
 		employeeService.save(employee)
