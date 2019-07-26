@@ -32,17 +32,27 @@
 					<table class = "table table-bordered table-hover table-sm" id = "list">
 						<caption>List of employees</caption>
 						<thead class="thead-dark">
-							<tr>
-								<th width = "20%">#ID</th>
-								<th width = "30%">Name</th>
-								<th width = "30%">Job</th>
+							<tr class = "text-center">
+								<th width = "10%">#ID</th>
+								<th width = "10%">Code</th>
+								<th width = "10%">Name</th>
+								<th width = "10%">Gender</th>
+								<th width = "10%">Email</th>
+								<th width = "10%">Mobile</th>
+								<th width = "10%">Address</th>
+								<th width = "10%">Job</th>
 								<th width = "20%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for = "data in datas">
+							<tr v-for = "data in datas" class = "text-center">
 								<td>{{data.id}}</td>
+								<td>{{data.code}}</td>
 								<td>{{data.name}}</td>
+								<td>{{data.gender == 0 ? 'Male' : 'Female'}}</td>
+								<td>{{data.email}}</td>
+								<td>{{data.mobile}}</td>
+								<td>{{data.address}}</td>
 								<td>{{data.job}}</td>
 								<!-- vue拼接超链接方式 -->
 								<td>
