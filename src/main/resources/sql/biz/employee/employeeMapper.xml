@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.ch.sys.biz.dao.business.mapper.employee.EmployeeDao">
+	<!-- 设置缓存 -->
+	<cache type = "com.ch.sys.biz.system.cache.redis.mybatis.MybatisRedisCache">
+		<property name = "eviction" value = "LRU"/><!-- 缓存清除机制：LRU/FIF0/SOFT/WEAK，默认LRU -->
+		<property name = "flushInterval" value = "600000"/><!-- 缓存过期时间,若为空,只要空间足够则永不过期 -->
+		<property name = "size" value = "1024"/><!-- 缓存个数,默认1024-->
+		<property name = "readOnly" value = "false"/><!-- 是否只读，如果为true，则相同sql返回的是同一个对象（有助于提高性能，但是并发操作同一个对象时，可能不安全）。如果是false，则相同的sql后面访问的是cache的副本 -->
+	</cache>
 	<!-- 新增雇员 -->
 	<insert id="insert" parameterType="Tb_Employee">
 		insert into tb_employee
