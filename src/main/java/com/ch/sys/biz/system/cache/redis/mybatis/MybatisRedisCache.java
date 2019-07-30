@@ -89,10 +89,13 @@ public class MybatisRedisCache implements Cache {
 		if(logger.isDebugEnabled())
 			logger.debug("Clear Redis Cache of Mybatis");
 		try {
-			this.getRedisTemplate();
-			Set<String> keys = redisTemplate.keys(this.id);
+			this.getRedisTemplate();	
+			//使用*通配符获取所有相关key
+			Set<String> keys = redisTemplate.keys("*"+this.id+"*");
 			if(keys != null && keys.size() != 0) {
 				redisTemplate.delete(keys);
+			}else {
+				System.out.println("-------------------------cache clear keys is empty...-------------------------");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
