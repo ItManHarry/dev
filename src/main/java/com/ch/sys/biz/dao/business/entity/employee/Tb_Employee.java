@@ -9,13 +9,14 @@ public class Tb_Employee extends BaseEntity {
 	public static final int GENDER_MALE = 0;
 	public static final int GENDER_FEMALE = 1;
 	private static final long serialVersionUID = 5375541256532181851L;
-	private String name;	//姓名
-	private String code;	//职号
-	private int gender;		//性别
-	private String email;	//邮箱
-	private String mobile;	//手机号
-	private String address;	//住址
-	private String job;		//职位
+	private String name;			//姓名
+	private String code;			//职号
+	private int gender;				//性别
+	private String email;			//邮箱
+	private String mobile;			//手机号
+	private String address;			//住址
+	private String job;				//职位
+	private Integer departmentid;	//部门ID
 	
 	public String getName() {
 		return name;
@@ -58,5 +59,11 @@ public class Tb_Employee extends BaseEntity {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Integer getDepartmentid() {
+		return departmentid;
+	}
+	public void setDepartmentid(Integer departmentid) {
+		this.departmentid = departmentid;
 	}
 }

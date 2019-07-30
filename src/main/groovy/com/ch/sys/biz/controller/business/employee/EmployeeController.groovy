@@ -1,6 +1,5 @@
-package com.ch.sys.biz.controller.employee
+package com.ch.sys.biz.controller.business.employee
 import javax.servlet.http.HttpServletRequest
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -68,8 +67,6 @@ class EmployeeController {
 	@GetMapping("/update")
 	def update(String id, Map map){
 		Tb_Employee employee = employeeService.findById(id)
-		println employee.id + ", "  + employee.name + ", " + employee.job
-		println employee.code + ", " + employee.address + ", " + employee.email + ", " + employee.gender + ", " + employee.mobile
 		map.put("employee", employee)
 		return URL + "/update"
 	}
@@ -105,7 +102,6 @@ class EmployeeController {
 	 */
 	@GetMapping("/move")
 	def move(String id, Map map){
-		println "id is : $id"
 		def ids = id.split(",")
 		Integer i = employeeService.delete(ids)
 		def total = employeeService.recordCntByTerm("");
