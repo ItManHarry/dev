@@ -1,4 +1,4 @@
-package com.ch.sys.biz.controller.redis
+package com.ch.sys.biz.controller.system.redis
 import com.ch.sys.biz.dao.business.entity.employee.Tb_Employee
 import com.ch.sys.biz.system.cache.redis.RedisFactoryJson
 import com.ch.sys.biz.system.cache.redis.RedisFactoryString
