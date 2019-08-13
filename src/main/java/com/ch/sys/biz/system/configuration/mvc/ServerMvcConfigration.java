@@ -49,13 +49,12 @@ public class ServerMvcConfigration extends WebMvcConfigurationSupport {
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
-		registry.addResourceHandler("/static/**")
-			.addResourceLocations("classpath:/static/");
-		
-		System.out.println("Image path : " + imagePath);
-		
-		registry.addResourceHandler("/images/**")
-			.addResourceLocations("file:"+imagePath);
+		 //将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版 
+        registry.addResourceHandler("/templates/**.js").addResourceLocations("classpath:/templates/"); 
+        registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
+        //其他的静态资源
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");		
+		registry.addResourceHandler("/images/**").addResourceLocations("file:"+imagePath);
 		super.addResourceHandlers(registry);
 	}		
 }

@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="commons/css::common_css(~{::title})">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>Department Update Page</title>
-		<link rel="shortcut icon" type="image/x-icon" th:href = "@{/static/images/logoes/way.ico}" media="screen" />
-		<link rel = "stylesheet" th:href = "@{/static/css/bootstrap.min.css}" media="screen"/>
-		<!-- fontawesome -->
-		<link rel = "stylesheet" th:href = "@{/static/css/all.css}" media="screen"/>
-		<script type = "text/javascript" th:src = "@{/static/js/jquery-3.3.1.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/popper.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/bootstrap.min.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/bootstrap-paginator.js}" charset="UTF-8"></script>
-		<script type = "text/javascript" th:src = "@{/static/js/vue.js}" charset="UTF-8"></script>
 	</head>
 	<body>
+		<!-- 引入公共js文件 -->
+		<div th:replace="commons/js::common_js(~{::script})"></div>
 		<div class="container-fluid" id = "contentdiv"> 
 			<div class = "row">
 				<div class = "col-sm-12">
