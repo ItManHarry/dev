@@ -74,7 +74,7 @@
 					}
 				},
 				created:function(){
-					getData(1,this.name);					
+							
 				}
 			});
 			$(function(){
@@ -84,8 +84,8 @@
 		            currentPage: 1, 						//当前页
 		            numberOfPages: 10, 						//显示的页数
 		            totalPages: Math.ceil(vm.total / 10), 	// 总页数
-		            /**
-		             * 分页点击事件
+		            /*
+		             *	分页点击事件
 		             * @param event [jquery对象]
 		             * @param originalEvent [dom原生对象]
 		             * @param type [按钮类型]
@@ -94,7 +94,8 @@
 		            onPageClicked: function (event, originalEvent, type, page) {
 		               	getData(page,vm.name);
 		            }
-		        })
+		        });
+				getData(1,"");			
 			})
 			/**
 			*获取数据
