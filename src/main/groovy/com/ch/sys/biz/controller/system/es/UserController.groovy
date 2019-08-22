@@ -1,69 +1,87 @@
 package com.ch.sys.biz.controller.system.es
-//import org.elasticsearch.index.query.BoolQueryBuilder
-//import org.elasticsearch.index.query.QueryBuilders
 import org.springframework.beans.factory.annotation.Autowired
-//import org.springframework.data.domain.PageRequest
-//import org.springframework.data.domain.jaxb.SpringDataJaxb.PageRequestDto
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import com.ch.sys.biz.service.es.ElasticSearchService
+import com.ch.sys.biz.dao.es.entity.EsUser
+import com.ch.sys.biz.system.results.ServerResultJson
+import com.fasterxml.jackson.databind.ObjectMapper
+
+import java.net.Authenticator.RequestorType
+
+import javax.servlet.http.HttpServletRequest
+
+import org.elasticsearch.action.delete.DeleteRequest
+import org.elasticsearch.action.delete.DeleteResponse
 import org.elasticsearch.action.get.GetRequest
 import org.elasticsearch.action.get.GetResponse
+import org.elasticsearch.action.index.IndexRequest
+import org.elasticsearch.action.update.UpdateRequest
 import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
-//import com.ch.sys.biz.service.es.BookService
-//import com.ch.sys.biz.system.es.entity.Book
-//import com.github.pagehelper.Page
+import org.elasticsearch.common.xcontent.XContentType
 @RestController
 @RequestMapping("/es/user")
 class UserController {
 	@Autowired
-	RestHighLevelClient restHighLevelClient;
-	@Autowired
-	ElasticSearchService elasticSearchService;
-	
+	RestHighLevelClient restHighLevelClient
+
 	@PostMapping("/add")
 	def add() {
-		Map data = new HashMap()
-		data.put("name", "SpringBootClient")
-		data.put("sex", 0)
-		data.put("age", 23)
-		data.put("book", "Spring入门到精通")
-		data.put("remark", "this is a data from spring boot")
-		elasticSearchService.add("doosan_db", "user", "qqqqqqqq", data)
+		//以下使用json字符串进行存储
+		EsUser user = new EsUser()
+		user.setName("ESUserFromSpring")
+		user.setSex(1)
+		user.setAge(28)
+		user.setBook("ElasticSearch 入门到精通")
+		user.setRemark("数据来至于SpringBoot客户端")
+		ObjectMapper mapper = new ObjectMapper()
+		String jsonStr = mapper.writeValueAsString(user)
+		IndexRequest request = new IndexRequest("doosan_db", "user", UUID.randomUUID().toString()).source(jsonStr, XContentType.JSON)
+		restHighLevelClient.index(request, RequestOptions.DEFAULT)
 		return "SUCCESS"
 	}
-//	
-//	@PostMapping("/update")
-//	Book update(Book book) {
-//		bookService.save(book)
-//		println "Book has been insert to the ES"
-//		return book
-//	}
-//	
-//	@PostMapping("/delete/{id}")
-//	Book delete(@PathVariable String id) {
-//		Optional<Book> op = bookService.findOne(id)
-//		bookService.delete(op.get())
-//		return op.get()
-//	}
-//	
-//	@GetMapping("/search/{id}")
-//	Optional<Book> getById(@PathVariable String id){
-//		return bookService.findOne(id)
-//	}
+	
+	@PutMapping("/update")
+	def update(HttpServletRequest request) {
+		GetRequest getRequest = new GetRequest("doosan_db", "user", request.getParameter("id").toString())
+		GetResponse response = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT)
+		def data = response.getSourceAsMap()
+		EsUser user = new EsUser(data.get("name"), data.get("sex"), data.get("age"), data.get("book"), data.get("remark"))
+		user.setName(request.getParameter("name"))
+		user.setSex(Integer.parseInt(request.getParameter("sex")))
+		user.setAge(Integer.parseInt(request.getParameter("age")))
+		user.setBook(request.getParameter("book"))
+		user.setRemark(request.getParameter("remark"))
+		ObjectMapper mapper = new ObjectMapper()
+		String jsonStr = mapper.writeValueAsString(user)
+		UpdateRequest updateRequest = new UpdateRequest("doosan_db", "user", request.getParameter("id").toString()).doc(jsonStr, XContentType.JSON)
+		restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT)
+		return ServerResultJson.success("Update Successfully!")
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	def delete(@PathVariable String id) {
+		DeleteRequest request = new DeleteRequest("doosan_db", "user", id)
+		restHighLevelClient.delete(request, RequestOptions.DEFAULT)
+		return ServerResultJson.success("Delete Successfully!")
+	}
+	
 	
 	@GetMapping("/search/{id}")
-	def getIndexTest(@PathVariable("id") String id) {
+	def getById(@PathVariable("id") String id) {
 		GetRequest request = new GetRequest("doosan_db", "user", id)
 		GetResponse response = restHighLevelClient.get(request, RequestOptions.DEFAULT)
-		println "Index is : " + response.getIndex()
-		println "Type is : " +  response.getType()
 		def data = response.getSourceAsMap()
-		return data
+		data.each { k, v ->
+			println "Key is : $k, Value is : $v"
+		}
+		EsUser user = new EsUser(data.get("name"), data.get("sex"), data.get("age"), data.get("book"), data.get("remark"))
+		return ServerResultJson.success(user)
 	}
 //	
 //	@GetMapping("/search/{page}/{size}/{q}")
