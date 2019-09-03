@@ -127,5 +127,15 @@ class DepartmentController {
 		Page<Tb_Department> allByTerm = departmentService.findAllByTerm(order, page, limit, name)
 		return ServerResultJson.success(allByTerm, countByTerm)
 	}
+	/**
+	 * 获取全部的部门数据
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/getAll")
+	def getAll(){
+		List<Tb_Department> all = departmentService.findAll(new Tb_Department())
+		return ServerResultJson.success(all)
+	}
 	
 }
