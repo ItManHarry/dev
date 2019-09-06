@@ -127,6 +127,16 @@ class DepartmentController {
 		Page<Tb_Department> allByTerm = departmentService.findAllByTerm(order, page, limit, name)
 		return ServerResultJson.success(allByTerm, countByTerm)
 	}
+	@ResponseBody
+	@GetMapping("/page")
+	def page(String order, Integer page, Integer limit, String name){
+		def countByTerm = departmentService.recordCntByTerm(name);
+		Page<Tb_Department> allByTerm = departmentService.findAllByTerm(order, page, limit, name)
+		def ds = []
+		for(Tb_Department d : allByTerm)
+			ds << d
+		return ServerResultJson.success(ds, ds.size())
+	}
 	/**
 	 * 获取全部的部门数据
 	 * @return

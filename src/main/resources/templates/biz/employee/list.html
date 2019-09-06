@@ -8,8 +8,9 @@
 	<body>
 		<!-- 引入公共js文件 -->
 		<div th:replace="commons/js::common_js(~{::script})"></div>
-		<div class="container-fluid" id = "contentdiv"> 
-			<br>
+		<div class="container-fluid" id = "contentdiv">
+			<!-- 引入公共nav文件 --> 
+			<div th:replace="commons/nav::common_nav()"></div><br>
 			<div class = "row">
 				<div class = "col-sm-10 text-right">
 					<input type = "text" placeholder = "name..." v-model = "name" class = "form-control"/>
